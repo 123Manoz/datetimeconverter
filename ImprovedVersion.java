@@ -121,3 +121,27 @@ public class DateRangeController {
         return ResponseEntity.ok("Another endpoint using the same date conversion");
     }
 }
+
+
+package com.example.demo.validator;
+
+import com.example.demo.annotation.CustomDate;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+public class CustomDateValidator implements ConstraintValidator<CustomDate, String> {
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+    private boolean optional;
+
+    @Override
+    public void initialize(CustomDate constraintAnnotation) {
+        this.optional = constraintAnnotation.optional();
+    }
+
+    @Override
+    public boolean isValid(String value, ConstraintVal
+
