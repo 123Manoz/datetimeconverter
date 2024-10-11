@@ -143,5 +143,18 @@ public class CustomDateValidator implements ConstraintValidator<CustomDate, Stri
     }
 
     @Override
-    public boolean isValid(String value, ConstraintVal
-
+    public boolean isValid(String value, ConstraintValidatorContext context) {
+        if (optional && (value == null || value.isEmpty())) {
+            return true;
+        }
+        if (!optional && (value == null || value.isEmpty())) {
+            return false;
+        }
+        try {
+            DATE_FORMATTER.parse(value);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+}
